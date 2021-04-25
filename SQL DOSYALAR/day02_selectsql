@@ -1,0 +1,108 @@
+
+CREATE TABLE ogrenciler
+(
+id NUMBER(9),
+isim VARCHAR2(50),
+adres VARCHAR2(100),
+sinav_notu NUMBER(3)
+
+);
+INSERT INTO ogrenciler VALUES(123, 'Ali Can', 'Ankara',75);
+INSERT INTO ogrenciler VALUES(124, 'Merve Gul', 'Ankara',85);
+INSERT INTO ogrenciler VALUES(125, 'Kemal Yasa', 'Istanbul',85);
+
+SELECT * FROM ogrenc?ler;
+-- notu 80 den buyuk olanlari gostersin
+SELECT * FROM ogrenc?ler 
+WHERE sinav_notu>80;
+-- notu 80 den buyuk olanlari sadece isim ve notu goster
+SELECT isim,sinav_notu
+from ogrenciler
+where sinav_notu>80;
+
+-- ankarada yasayanlari gostersin
+SELECT * FROM ogrenc?ler
+WHERE adres ='Ankara';
+
+--silme
+DELETE ogrenciler
+WHERE ID =124
+
+CREATE TABLE personel
+    (   
+        id CHAR(5),
+        isim VARCHAR2(50),
+        maas NUMBER(5)
+    );
+?
+    INSERT INTO personel VALUES('10001', 'Ahmet Aslan', 7000);
+    INSERT INTO personel VALUES( '10002', 'Mehmet Y?lmaz' ,12000);
+    INSERT INTO personel VALUES('10003', 'Meryem ', 7215);
+    INSERT INTO personel VALUES('10004', 'Veli Han', 5000);
+    INSERT INTO personel VALUES('10005', 'Mustafa Ali', 5500);
+    INSERT INTO personel VALUES('10005', 'Ay?e Can', 4000);
+?
+    SELECT * FROM personel;
+    
+    SELECT * FROM personel
+    WHERE id>='10002' AND id<='10004';
+
+   SELECT * FROM personel
+    WHERE id BETWEEN '10002' AND '10004';
+    
+       SELECT * FROM personel
+    WHERE isim BETWEEN 'Mehmet Yilmaz' AND 'Veli Han'; -- alfabetik siralama yapar m-v
+    -- x-y arasinda olayanlari siralayalim 
+      SELECT * FROM personel
+    WHERE id NOT BETWEEN '10002' AND '10004'; 
+    =
+    SELECT * FROM personel
+    WHERE id='10002' OR id='10004' OR id=10001; 
+    
+    -- id si su olanlar or lu gibi
+       SELECT * FROM personel
+    WHERE id IN('10002', '10004','10001'); 
+    -- maasi 7000 ve 12000 olanlar
+    SELECT * FROM personel
+    WHERE maas IN(7000, 12000);
+    
+    
+    
+    --=================================
+/*  ======================= SELECT - REGEXP_LIKE ================================
+    Daha karma??k pattern ile sorgulama i?lemi i?in REGEXP_LIKE kullan?labilir. 
+    Syntax:
+    --------
+    REGEXP_LIKE(sutun_ad?, ‘pattern[] ’, ‘c’ ] )
+           
+========================================================================== */  
+    
+    
+    CREATE TABLE kelimeler
+    (
+        id NUMBER(10) UNIQUE,
+        kelime VARCHAR2(50) NOT NULL,
+        harf_sayisi NUMBER(6)
+    );
+    
+    INSERT INTO kelimeler VALUES (1001, 'hot', 3);
+    INSERT INTO kelimeler VALUES (1002, 'hat', 3);
+    INSERT INTO kelimeler VALUES (1003, 'hit', 3);
+    INSERT INTO kelimeler VALUES (1004, 'hbt', 3);
+    INSERT INTO kelimeler VALUES (1005, 'hct', 3);
+    INSERT INTO kelimeler VALUES (1006, 'adem', 4);
+    INSERT INTO kelimeler VALUES (1007, 'selim', 5);
+    INSERT INTO kelimeler VALUES (1008, 'yusuf', 5);
+    INSERT INTO kelimeler VALUES (1009, 'hip', 3);
+    INSERT INTO kelimeler VALUES (1010, 'HOT', 3);
+    INSERT INTO kelimeler VALUES (1011, 'hOt', 3);
+    INSERT INTO kelimeler VALUES (1012, 'h9t', 3);
+    INSERT INTO kelimeler VALUES (1013, 'hoot', 4);
+    INSERT INTO kelimeler VALUES (1014, 'haaat', 5);
+    
+    select * from kelimeler
+    
+    
+    
+    
+    
