@@ -73,9 +73,68 @@ drop table sirketler;
  
  --select maas from personel where  IN (personel_sayisi from sirketler IN (select  sirket_id) );
  
- 
- 
- 
- 
+ SELECT sirket_adi,personel_sayisi FROM sirketler 
+WHERE sirket_adi IN(SELECT sirket FROM personel);
 
+select sirket,personel_sayisi,sum(maas) as "Toplam Maas" from personel,sirketler 
+where sirket=sirket_adi
+group by sirket,personel_sayisi ;
+ 
+ SELECT sirket_adi, personel_sayisi, (SELECT Sum(maas)
+FROM personel 
+Where sirket=sirket_adi)FROM sirketler;
+
+SELECT sirket_adi, personel_sayisi, (SELECT Sum(maas)
+FROM personel 
+Where sirket=sirket_adi) AS maas_toplami FROM sirketler;
+ 
+ 
+ /* ===================== AGGREGATE METOT KULLANIMI ===========================
+    Aggregate Metotlar?(SUM,COUNT, MIN,MAX, AVG) Subquery i?inde kullan?labilir.
+    Ancak, Sorgu tek bir de?er d?nd?ryor olmal?d?r.
+==============================================================================*/   
+    
+    SELECT sirket_adi, personel_sayisi, (SELECT SUM(maas) FROM personel
+                                      WHERE  sirket = sirketler.sirket_adi) AS toplam_maas
+                                     
+    FROM sirketler;
+ 
+/* -----------------------------------------------------------------------------
+  ORNEK5: Her ?irketin ismini, personel say?s?n? ve o ?irkete ait personelin
+  ortalama maa??n? listeleyen bir Sorgu yaz?n?z.
+ -----------------------------------------------------------------------------*/
+ 
+    SELECT sirket_adi, personel_sayisi, (SELECT ROUND(AVG(maas)) FROM personel
+                                        WHERE  sirket = sirketler.sirket_adi) AS ort_maas
+                                     
+    FROM sirketler;
+    
+ /* ----------------------------------------------------------------------------
+  ORNEK6: Her ?irketin ismini, personel say?s?n? ve o ?irkete ait personelin
+  maksimum ve minumum maa??n? listeleyen bir Sorgu yaz?n?z.
+ -----------------------------------------------------------------------------*/          
+    
+    SELECT sirket_adi, personel_sayisi, (SELECT MAX(maas) FROM personel
+                                        WHERE sirket_adi=sirket) AS max_maas, 
+                                        (SELECT MIN (maas) FROM personel 
+                                        WHERE sirket_adi=sirket) AS min_maas
+                                       
+    FROM sirketler;
+    
+      
+/* -----------------------------------------------------------------------------
+  ORNEK7: Her sirketin id’sini, ismini ve toplam ka? ?ehirde bulundu?unu 
+  listeleyen bir SORGU yaz?n?z.
+ -----------------------------------------------------------------------------*/
+    SELECT sirket_id, sirket_adi, ( SELECT COUNT(sehir) FROM personel
+                                    WHERE sirket = sirketler.sirket_adi) AS sehir_sayisi
+    
+    FROM sirketler;
+    
+    
+    
+    
+    
+    
+  
   
