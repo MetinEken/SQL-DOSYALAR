@@ -11,9 +11,9 @@ INSERT INTO ogrenciler VALUES(123, 'Ali Can', 'Ankara',75);
 INSERT INTO ogrenciler VALUES(124, 'Merve Gul', 'Ankara',85);
 INSERT INTO ogrenciler VALUES(125, 'Kemal Yasa', 'Istanbul',85);
 
-SELECT * FROM ogrenc?ler;
+SELECT * FROM ogrenciler;
 -- notu 80 den buyuk olanlari gostersin
-SELECT * FROM ogrenc?ler 
+SELECT * FROM ogrenciler 
 WHERE sinav_notu>80;
 -- notu 80 den buyuk olanlari sadece isim ve notu goster
 SELECT isim,sinav_notu
@@ -21,7 +21,7 @@ from ogrenciler
 where sinav_notu>80;
 
 -- ankarada yasayanlari gostersin
-SELECT * FROM ogrenc?ler
+SELECT * FROM ogrenciler
 WHERE adres ='Ankara';
 
 --silme
@@ -34,14 +34,14 @@ CREATE TABLE personel
         isim VARCHAR2(50),
         maas NUMBER(5)
     );
-?
+
     INSERT INTO personel VALUES('10001', 'Ahmet Aslan', 7000);
     INSERT INTO personel VALUES( '10002', 'Mehmet Y?lmaz' ,12000);
     INSERT INTO personel VALUES('10003', 'Meryem ', 7215);
     INSERT INTO personel VALUES('10004', 'Veli Han', 5000);
     INSERT INTO personel VALUES('10005', 'Mustafa Ali', 5500);
     INSERT INTO personel VALUES('10005', 'Ay?e Can', 4000);
-?
+
     SELECT * FROM personel;
     
     SELECT * FROM personel
