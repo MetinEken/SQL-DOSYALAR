@@ -58,7 +58,7 @@
     -- Bir sorgu i?erisinde  tabloya da k?sa isim vermek m?mk?n. 
     -- tablo_Adi k?sa_isim
     
-    SELECT musteri_isim FROM mart_satislar 
+    SELECT urun_id, musteri_isim FROM mart_satislar 
     
     WHERE EXISTS  (SELECT urun_id FROM nisan_satislar 
                   WHERE mart_satislar.urun_id = nisan_satislar.urun_id);
@@ -72,12 +72,16 @@
   ORNEK2: Her iki ayda da sat?lan ?r?nlerin URUN_ISIM'lerini ve bu ?r?nleri
   N?SAN ay?nda sat?n alan MUSTERI_ISIM'lerini listeleyen bir sorgu yaz?n?z. 
  -----------------------------------------------------------------------------*/
- 
+ SELECT urun_isim, musteri_isim FROM  nisan_satislar  n
+ WHERE EXISTS (SELECT urun_isim FROM mart_satislar m
+                WHERE m.urun_isim=n.urun_isim);
  
  /* ----------------------------------------------------------------------------
   ORNEK3: Her iki ayda da ortak olarak sat?lmayan ?r?nlerin URUN_ISIM'lerini 
   ve bu ?r?nleri N?SAN ay?nda sat?n alan MUSTERI_ISIM'lerini listeleyiniz. 
  -----------------------------------------------------------------------------*/
- 
+ SELECT urun_isim, musteri_isim FROM  nisan_satislar  n
+ WHERE NOT EXISTS (SELECT urun_isim FROM mart_satislar m
+                WHERE m.urun_isim=n.urun_isim);
  
     

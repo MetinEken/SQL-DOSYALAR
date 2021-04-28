@@ -78,6 +78,7 @@ WHERE sirket_adi IN(SELECT sirket FROM personel);
 
 select sirket,personel_sayisi,sum(maas) as "Toplam Maas" from personel,sirketler 
 where sirket=sirket_adi
+
 group by sirket,personel_sayisi ;
  
  SELECT sirket_adi, personel_sayisi, (SELECT Sum(maas)
@@ -86,7 +87,7 @@ Where sirket=sirket_adi)FROM sirketler;
 
 SELECT sirket_adi, personel_sayisi, (SELECT Sum(maas)
 FROM personel 
-Where sirket=sirket_adi) AS maas_toplami FROM sirketler;
+Where sirket=sirket_adi)AS maas_toplami  FROM sirketler;
  
  
  /* ===================== AGGREGATE METOT KULLANIMI ===========================
@@ -115,7 +116,8 @@ Where sirket=sirket_adi) AS maas_toplami FROM sirketler;
  -----------------------------------------------------------------------------*/          
     
     SELECT sirket_adi, personel_sayisi, (SELECT MAX(maas) FROM personel
-                                        WHERE sirket_adi=sirket) AS max_maas, 
+                                        WHERE sirket_adi=sirket) AS max_maas,
+                                        
                                         (SELECT MIN (maas) FROM personel 
                                         WHERE sirket_adi=sirket) AS min_maas
                                        
