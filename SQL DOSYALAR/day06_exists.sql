@@ -43,7 +43,7 @@
     SELECT * FROM mart_satislar;
     SELECT * FROM nisan_satislar;
    
-    DELETE FROM nisan_satislar;
+    --DELETE FROM nisan_satislar;
     
        
 /* -----------------------------------------------------------------------------
@@ -72,19 +72,19 @@
   N?SAN ay?nda sat?n alan MUSTERI_ISIM'lerini listeleyen bir sorgu yaz?n?z. 
  -----------------------------------------------------------------------------*/
  
-    SELECT urun_isim, musteri_isim FROM nisan_satislar nisan
+    SELECT urun_isim, musteri_isim FROM nisan_satislar  nisan
     
     WHERE EXISTS  (SELECT urun_id FROM mart_satislar mart
                   WHERE mart.urun_isim = nisan.urun_isim);
  
  /* ----------------------------------------------------------------------------
-  ORNEK3: Her iki ayda da ortak olarak sat?lmayan ?r?nlerin URUN_ISIM'lerini 
+  ORNEK3: Her iki ayda da ortak olarak satilmayan ?r?nlerin URUN_ISIM'lerini 
   ve bu ?r?nleri N?SAN ay?nda sat?n alan MUSTERI_ISIM'lerini listeleyiniz. 
  -----------------------------------------------------------------------------*/
-    SELECT urun_isim, musteri_isim FROM nisan_satislar nisan
+    SELECT urun_isim, musteri_isim FROM nisan_satislar n
     
     WHERE NOT EXISTS  (SELECT urun_id FROM mart_satislar mart
-                      WHERE mart.urun_isim = nisan.urun_isim);
+                      WHERE mart.urun_isim = n.urun_isim);
  
        
  /*===================== IS NULL, IS NOT NULL, COALESCE ========================
@@ -113,7 +113,7 @@
     INSERT INTO insanlar (ssn, adres) VALUES('567890123', 'Denizli');
     INSERT INTO insanlar (adres) VALUES('Sakarya');
     INSERT INTO insanlar (ssn) VALUES('999111222');
-    
+   -- INSERT INTO insanlar  VALUES();
     DELETE FROM insanlar;
 /* ----------------------------------------------------------------------------
     ORNEK1: isim 'i NULL olanlar? sorgulay?n?z.
@@ -144,7 +144,7 @@
        adres = COALESCE (adres, 'Hen?z adres girilmedi'),
        ssn= COALESCE (ssn, 'No SSN');
        
-    
+    SELECT * FROM insanlar;
 /*================================ ORDER BY  ===================================
    ORDER BY c?mleci?i bir SORGU deyimi i?erisinde belli bir SUTUN’a g?re 
    SIRALAMA yapmak i?in kullan?l?r.

@@ -41,6 +41,7 @@
  -----------------------------------------------------------------------------*/ 
  
   SELECT isim,maas,sirket FROM personel
+  
   WHERE sirket IN(SELECT sirket_adi FROM sirketler  
                   WHERE personel_sayisi > 15000 );
  
@@ -51,7 +52,8 @@ drop table sirketler;
   ORNEK2: sirket_id’si 101’den b?y?k olan ?irket ?al??anlar?n?n isim, maa? ve 
   ?ehirlerini listeleyiniz. 
  -----------------------------------------------------------------------------*/
- select isim, maas, sehir from personel 
+ select isim, maas, sehir from personel
+ 
  where sirket In (Select sirket_adi from sirketler
  where sirket_id >101);
 /* -----------------------------------------------------------------------------
@@ -96,7 +98,7 @@ Where sirket=sirket_adi)AS maas_toplami  FROM sirketler;
 ==============================================================================*/   
     
     SELECT sirket_adi, personel_sayisi, (SELECT SUM(maas) FROM personel
-                                      WHERE  sirket = sirketler.sirket_adi) AS toplam_maas
+                                      WHERE  personel.sirket = sirketler.sirket_adi) AS toplam_maas
                                      
     FROM sirketler;
  
