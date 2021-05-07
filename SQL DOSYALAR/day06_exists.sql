@@ -231,16 +231,16 @@
     SELECT * FROM kisiler
     ORDER BY maas DESC
     FETCH NEXT 3 ROWS ONLY;
-    
+    -- maaslari yuksekten siralayip, ilk 3 unu aldik
 /* ----------------------------------------------------------------------------
   ORNEK2: MAA?'? en D???K 2 ki?inin bilgilerini listeleyen sorguyu yaz?n?z.
 -----------------------------------------------------------------------------*/
     SELECT * FROM kisiler
     ORDER BY maas ASC
     FETCH NEXT 2 ROWS ONLY;
-    
+    -- maaslari ilk dusukleri yazdirip, ilk 2 sini yazdirdik
 /* ----------------------------------------------------------------------------
-  ORNEK3: MAA?'a g?re s?ralamada 4. ile 6. ki?ilerin bilgilerini listeleyen 
+  ORNEK3: MAA?'a g?re s?ralamada 4-6. ki?ilerin bilgilerini listeleyen 
   sorguyu yaz?n?z.
 -----------------------------------------------------------------------------*/     
     SELECT * FROM kisiler

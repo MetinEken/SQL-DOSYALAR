@@ -96,7 +96,7 @@ ORDER BY max_miktar desc;
  select isim, urun_adi, sum(urun_miktari) as toplam_urun
  from manav
  group by isim, urun_adi
- HAVING sum(urun_miktari) >= 3 --myself, sonradan olustrulan bir topla icin
+ HAVING sum(urun_miktari) >= 3 --myself, sonradan olustrulan bir sutun icin
  order by sum(urun_miktari) desc; -- where sintaksi icin having kullanilir  
     
     
@@ -117,8 +117,8 @@ ORDER BY max_miktar desc;
      SELECT urun_adi, MAX(urun_miktari)
      FROM manav
      GROUP BY urun_adi
-     HAVING MAX(urun_miktari) <> MIN(urun_miktari)
-     ORDER BY MAX(urun_miktari);
+     HAVING MAX(urun_miktari) <> MIN(urun_miktari) --!=
+     ORDER BY MAX(urun_miktari); --asc
 
 
  /*============================= DISTINCT =====================================

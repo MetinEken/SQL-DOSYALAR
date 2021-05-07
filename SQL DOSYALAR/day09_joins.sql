@@ -71,7 +71,7 @@
     ON s.sirket_id = sp.sirket_id;
     
     -- FULL Join'de iki tabloda var olan tum satirlar gosterilir.
-    -- Bir olupda digerlerine olmayan alanlar bo birakildi.
+    -- Birinde olupda digerlerine olmayan alanlar bos birakildi.
     -- Join isleminde genelde iki tablodaki ortak olarak bulunan sutun, ON 
     -- cumleciginde kosul yapisi kullanilir.
     
@@ -107,7 +107,8 @@
     
     -- INNER anahtar kelimesi opsiyoneldir.
     
-        
+   -- NOT : Ortak olanlari getirdi.2 honda getirdi, toyatayi getirmedi, karsiligi olmadigi icin
+   
 /*=============================== LEFT JOIN  ==================================
     
     LEFT JOIN, 1. tablodan (sol tablo) SELECT ile ifade edilen sutunlara ait tum
@@ -120,12 +121,18 @@
     FROM tablo1 
     LEFT JOIN tablo2
     ON tablo1.sutun = tablo2.sutun;
+    
+    NOT ; select ... from xxx(tablosu)
+    left = xxx(tablosu), left dendigi zaman from daki tablo anlasilir.
 ?
 ==============================================================================*/  
             
 /* -----------------------------------------------------------------------------
   ORNEK3: sirketler tablosundaki tum sirketleri ve bu sirketlere ait olan 
-  siparis_id ve siparis_tarihleri listeleyen bir sorgu yaziniz.
+  siparis_id ve siparis_tarihleri listeleyen bir sorgu yaziniz. 
+  
+  NOT: is meant to say; sirketlwer tablosunda ismi olmayan sirketlere ait siparisleri gosrermemi istemiyor
+  sadece ismi gecen sirketlere ait
 ------------------------------------------------------------------------------*/   
     
     SELECT s.sirket_isim, sp.siparis_id, sp.siparis_tarihi, sp.sirket_id, s.sirket_id

@@ -16,7 +16,7 @@
     UNION
     SELECT sutun_adi1, sutun_adi2, .. FROM tablo_adi2;
     
-    NOT: UNION operatoru SADECE benzersi degerleri al?r. Benzerli verileri almak
+    NOT: UNION operatoru SADECE benzersiz degerleri al?r. Benzerli verileri almak
     i?in UNION ALL kullan?l?r.
 ==============================================================================*/ 
   
@@ -37,7 +37,9 @@
     INSERT INTO personel VALUES(567890123, 'Mehmet Ozturk', 'Ankara', 7000, 'Tofas');
     INSERT INTO personel VALUES(453445611, 'Veli Sahin', 'Ankara', 4500, 'Ford');
     INSERT INTO personel VALUES(123456710, 'Hatice Sahin','Bursa', 4200, 'Honda');
-    
+     INSERT INTO personel VALUES(114563890, 'JOHN Sahin', 'Istanbul', 8500, 'Toyota');
+      INSERT INTO personel VALUES(223445611, 'THOMAS Sahin', 'Ankara', 5500, 'Ford');
+      
     SELECT * FROM personel;
     
 /* -----------------------------------------------------------------------------
@@ -45,15 +47,17 @@
   alinan sehirleri gosteren sorguyu yaziniz
 ------------------------------------------------------------------------------*/
     
-    SELECT isim AS isim_veya_sehir, maas
+    SELECT isim AS isim_veya_sehir, maas -- sutun ismini ilk koda yazilabilir
     FROM personel
     WHERE maas > 4000
+    
     UNION
+    
     SELECT sehir, maas 
     FROM personel
     WHERE maas > 5000;
     
-    * -----------------------------------------------------------------------------
+/*-----------------------------------------------------------------------------
   ORNEK3: Mehmet Ozturk ismindeki kisilerin aldigi maaslari ve Istanbul’daki
   personelin maaslarini y?ksekten a?a?a do?ru s?ralayarak bir tabloda gosteren
   sorguyu yaziniz.   
@@ -61,10 +65,12 @@
 
 SELECT maas, isim from personel
 where isim = 'Mehmet Ozturk'
-UNION
-select maas, sehir from personel
-where sehir = 'Istanbul';
 
+UNION ALL
+
+select maas, sehir from personel
+where sehir = 'Istanbul'
+ORDER BY maas DESC;
     
     /*======================== FARKLI TABLOLARDAN BIRLESTIRME ====================*/   
     
@@ -93,7 +99,10 @@ where sehir = 'Istanbul';
     SELECT sehir AS sehir_tel, maas AS maas_cocukSayisi
     FROM personel
     WHERE id = 123456789
-    UNION
+    
+    UNION           -- AYNI SUTUNDA YAZILANLARIN PARAMETRESI AYNI OLMALI
+                    -- NUMBER=NUMBER  CHAR=CHAR
+    
     SELECT tel, cocuk_sayisi
     FROM personel_bilgi
     WHERE id = 123456789;
@@ -125,7 +134,9 @@ where sehir = 'Istanbul';
     
     SELECT id FROM personel
     WHERE sehir IN('Istanbul','Ankara')
+    
     INTERSECT
+    
     SELECT id FROM personel_bilgi
     WHERE cocuk_sayisi IN (2,3);
   
@@ -137,11 +148,15 @@ where sehir = 'Istanbul';
     SELECT isim
     FROM personel
     WHERE sirket = 'Honda'
+    
     INTERSECT
+    
     SELECT isim
     FROM personel
     WHERE sirket = 'Ford'
+    
     INTERSECT
+    
     SELECT isim
     FROM personel
     WHERE sirket = 'Tofas';
@@ -149,14 +164,19 @@ where sehir = 'Istanbul';
 /* -----------------------------------------------------------------------------
   ORNEK7: Toyota ve Ford sirketlerinde ayni maasi alan personel isimlerini
   listeleyin
+  
+  BU SORU HATALI, AYNI ISIMLERI GETIRIYOR SADECE, YADA COZUMU HATALI
 ------------------------------------------------------------------------------*/    
     SELECT isim, maas
     FROM personel
     WHERE sirket = 'Toyota'
+    
     INTERSECT
+    
     SELECT isim, maas
     FROM personel
     WHERE sirket = 'Ford';
+    
    -- iki select metodunda da ortak olanlari gosterir. kesisme
           
 /*========================= SET OPERATORLERI: MINUS ============================
@@ -180,6 +200,7 @@ where sehir = 'Istanbul';
   listeleyen bir sorgu yaziniz. 
 ------------------------------------------------------------------------------*/ 
     -- 1.YONTEM (maasi 5000 den az olanlar ile sirketi Honda olmayanlari (!=) sec)
+    --INTERSECT
     SELECT isim,maas, sirket 
     FROM personel
     WHERE maas < 5000 
@@ -190,7 +211,7 @@ where sehir = 'Istanbul';
     
     -- 2.YONTEM (maasi 5000 den az olanlar ile sirketi Honda'dan farkli olanlari
     -- se?.
-    
+    --MINUS
     SELECT isim,maas,sirket 
     FROM personel
     WHERE maas < 5000 

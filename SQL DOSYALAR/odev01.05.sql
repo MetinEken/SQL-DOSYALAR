@@ -9,6 +9,8 @@ CREATE TABLE bolumler (
     INSERT INTO bolumler VALUES (30,'SATIS','IZMIR');
     INSERT INTO bolumler VALUES (40,'ISLETME','BURSA');
     INSERT INTO bolumler VALUES (50,'DEPO', 'YOZGAT');
+    
+    SELECT * FROM bolumler;
 ?
     CREATE TABLE personel (
       personel_id   NUMBER(4) CONSTRAINT personel_pk PRIMARY KEY,
@@ -38,7 +40,89 @@ CREATE TABLE bolumler (
     INSERT INTO personel VALUES (7933,'ZEKI','MUHENDIS',7782,'26-1-1987',4300,60);
      
     SELECT * FROM personel;
+    
+   -- drop table bolumler;
+   --  drop table personel;
+    SELECT personel_isim FROM personel WHERE personel_id=7369
+    
+    commit;
 /* -----------------------------------------------------------------------------
   ORNEK1: SATIS ve MUHASABE bolumlerinde calisan personelin isimlerini ve 
   bolumlerini, once bolum sonra isim s?ral? olarak listeleyiniz
 ------------------------------------------------------------------------------*/
+
+SELECT P.personel_isim, B.bolum_isim
+FROM bolumler B
+JOIN personel p
+ON B.bolum_id = P.bolum_id
+WHERE B.bolum_id IN(10,30)
+ORDER BY B.bolum_isim, P.personel_isim;
+
+
+SELECT P.personel_isim, B.bolum_isim 
+	FROM bolumler B 
+	JOIN personel P 
+	ON B.bolum_id = P.bolum_id
+	WHERE B.bolum_id IN(10,30)
+	ORDER BY B.bolum_isim, p.personel_isim;
+    
+    
+    
+    /* -----------------------------------------------------------------------------
+  ORNEK2: SATIS,ISLETME ve DEPO bolumlerinde calisan personelin isimlerini,  
+  bolumlerini ve ise_baslama tarihlerini isim s?ral? olarak listeleyiniz. 
+  NOT: calisani olmasa bile bolum ismi gosterilmelidir., bolumler tablosu tam gosterilmek isteniyor.
+  2 YOLLA sintax olussturulabilir. 
+  bolumler gosterilmek istendigi icin;
+  1. bolumler tablosu from a yazilip left sintxy yazilir
+  2. yol from a diger tablo yazilir ve right bolumune bolumler yazilir
+  
+  ------------------------------------------------------------------------------*/  
+--2.yol
+	 SELECT B.bolum_isim, P.personel_isim, P.ise_baslama
+	 FROM personel P
+	 RIGHT JOIN bolumler B
+	 ON P.bolum_id=B.bolum_id
+	 WHERE B.bolum_?d IN (40,30,50)
+	 ORDER BY B.bolum_isim;
+     
+    --1.yol
+     SELECT B.bolum_isim, P.personel_isim, P.ise_baslama
+	 FROM bolumler B
+	 LEFT JOIN personel P
+	 ON P.bolum_id=B.bolum_id
+	 WHERE B.bolum_?d IN (40,30,50)
+	 ORDER BY B.bolum_isim;
+
+    
+    
+    
+   * -----------------------------------------------------------------------------
+  ORNEK3: T?m bolumlerde calisan personelin isimlerini, bolum isimlerini ve 
+  maaslarini bolum ve maas siraali listeleyiniz. 
+  NOT: calisani olmasa bile bolum ismi gosterilmelidir.
+------------------------------------------------------------------------------*/  
+SELECT p.personel_isim, b.bolum_isim,p.maas
+FROM personel p
+full join bolumler b
+ON p.bolum_id=b.bolum_id
+ORDER By b.bolum_id, maas;
+
+    SELECT b.bolum_isim, p.personel_isim, p.maas
+    FROM   personel p
+    FULL JOIN bolumler b 
+    ON  p.bolum_id = b.bolum_id
+    ORDER BY b.bolum_id,p.maas DESC; 
+
+--her bolumu kendi icinde alfabetik siraliyor, daha sonra maaslari bolum bolum siraliyor
+
+
+ SELECT p.personel_isim, b.bolum_isim, p.maas
+				 FROM personel p
+				FULL JOIN bolumler b
+				 ON p.bolum_id = b.bolum_id
+				 ORDER BY p.maas;
+                 
+                 
+                 
+
